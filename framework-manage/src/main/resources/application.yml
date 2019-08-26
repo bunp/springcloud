@@ -1,0 +1,9 @@
+server:
+  port: 8729
+spring:
+  application:
+    name: charlie-manage
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8762/eureka/
