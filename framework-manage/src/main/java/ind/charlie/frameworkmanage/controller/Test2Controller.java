@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("test")
 public class Test2Controller {
-    @RequestMapping(value = "test2",method = RequestMethod.GET)
+    @RequestMapping(value = "test3333",method = RequestMethod.GET)
     public String test(){
         return "hello,everyBody and dabao";
     }
