@@ -17,6 +17,6 @@ import javax.ws.rs.POST;
 public class TestController {
     @RequestMapping(value = "hello",method = RequestMethod.POST)
     public String test(){
-        return "hello,everyBody";
+        return "hello,everyBody and dabao";
     }
 }
