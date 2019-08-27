@@ -15,7 +15,7 @@ import javax.ws.rs.POST;
 @RestController
 @RequestMapping("test")
 public class TestController {
-    @RequestMapping(value = "hello",method = RequestMethod.GET)
+    @RequestMapping(value = "test",method = RequestMethod.GET)
     public String test(){
         return "hello,everyBody and dabao";
     }
