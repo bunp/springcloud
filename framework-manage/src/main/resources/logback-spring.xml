@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <springProperty scope="context" name="springAppName" source="spring.application.name"/>
+    <!-- 日志在工程中的输出位置 -->
+    <property name="LOG_FILE" value="D:\\共享文件"/>
+    <!-- 控制台的日志输出样式 -->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}) [%X{logseq}]{faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr([${springAppName}]){yellow} %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+
+    <property name="FILE_LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%X{logseq}] [%thread] %X{T} [%level] %logger.%method:%line %msg%n"/>
+
+    <!-- 控制台Appender -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+    <!-- 日志记录Appender -->
+    <appender name="tellerlog" class="ch.qos.logback.classic.sift.SiftingAppender">
+        <discriminator>
+            <key>custNo</key>
+            <defaultValue>unknow</defaultValue>
+        </discriminator>
+        <sift>
+            <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+                <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                    <level>INFO</level>
+                </filter>
+                <file>${LOG_FILE}/%d{yyyy-MM-dd}/${custNo}/${springAppName}.log</file>
+                <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                    <maxFileSize>30MB</maxFileSize>
+                    <fileNamePattern>${LOG_FILE}/%d{yyyy-MM-dd}/${custNo}/${springAppName}-%d{yyyy-MM-dd}.log%i.log</fileNamePattern>
+                    <maxHistory>30</maxHistory>
+                </rollingPolicy>
+                <encoder>
+                    <pattern>${FILE_LOG_PATTERN}</pattern>
+                    <charset>utf8</charset>
+                </encoder>
+            </appender>
+        </sift>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="console"/>
+        <appender-ref ref="tellerlog"/>
+    </root>
+</configuration>

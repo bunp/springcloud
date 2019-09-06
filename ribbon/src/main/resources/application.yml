@@ -1,8 +1,9 @@
+
 server:
-  port: 8734
+  port: 8719
 spring:
   application:
-    name: charlie-manage
+    name: charlie-ribbon
 eureka:
   client:
     service-url:
@@ -14,7 +15,19 @@ eureka:
     lease-expiration-duration-in-seconds: 15
     lease-renewal-interval-in-seconds: 5
     status-page-url: http://${spring.cloud.client.ipAddress}:${server.port}/swagger-ui.html#/
-
 ribbon:
   eureka:
     enabled: true
+#hystrix超时设置
+#hystrix:
+#  threadpool:
+#    default:
+#      coreSize: 300 #最大线程数
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          semaphore:
+#            maxConcurrentRequests: 20 #最大并发请求数
+#          thread:
+#            timeoutInMilliseconds: 60000 #断融超时时间
